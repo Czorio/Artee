@@ -6,13 +6,13 @@ public:
 	~Renderer();
 
 	void renderFrame();
-	const unsigned char* getOutput();
+	void getOutput(uint32_t *framebuffer, SDL_PixelFormat *format);
 
 private:
 	std::vector<Tile> tiles;
 
 	// Output
 	vec3 *vecBuffer;
-	unsigned char *outBuffer;
+	uint32_t *outBuffer;
 };
 

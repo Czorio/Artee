@@ -1,36 +1,70 @@
 #include "Precomp.h"
 
-int main()
+int main(int argc, char* args[])
 {
-	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Artee");
-	sf::Texture texture;
-	sf::Sprite sprite;
-	sf::Image buffer;
+	SDL_SetMainReady();
 
-	Renderer renderer;
+	bool quit = false;
 
-	// run the program as long as the window is open
-	while (window.isOpen())
+	SDL_Window *window = NULL;
+	SDL_Surface *surface = NULL;
+
+	Renderer r = Renderer();
+
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		// check all the window's events that were triggered since the last iteration of the loop
-		sf::Event event;
-		while (window.pollEvent(event))
+		printf("Could not initialize SDL. SDL Error %s\n", SDL_GetError());
+		return 1;
+	}
+	
+	window = SDL_CreateWindow("Artee", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	if (window == NULL)
+	{
+		printf("Window could not be created. SDL Error %s\n", SDL_GetError());
+		return 2;
+	}
+
+	surface = SDL_GetWindowSurface(window);
+	if (surface == NULL)
+	{
+		printf("Surface could not be retrieved. SDL Error %s\n", SDL_GetError());
+		return 3;
+	}
+
+	uint32_t *framebuffer = static_cast<uint32_t *>(surface->pixels);
+
+	while (!quit)
+	{
+		uint32_t start = SDL_GetTicks();
+		r.renderFrame();
+
+		SDL_LockSurface(surface);
+		r.getOutput(framebuffer, surface->format);
+		SDL_UnlockSurface(surface);
+		SDL_UpdateWindowSurface(window);
+
+		SDL_Event event;
+
+		while (SDL_PollEvent(&event))
 		{
-			// "close requested" event: we close the window
-			if (event.type == sf::Event::Closed)
-				window.close();
+			if (event.type == SDL_QUIT)
+			{
+				quit = true;
+			}
 		}
 
-		// Clear window for the next frame
-		window.clear(sf::Color::Black);
+		vec3 a = vec3();
+		vec3 b = vec3(1.f);
+		vec3 c = a * b;
+		printf("a + b == (%f, %f, %f)\n", c.x, c.y, c.z);
 
-		renderer.renderFrame();
-		buffer.create(SCREEN_WIDTH, SCREEN_HEIGHT, renderer.getOutput());
-		texture.loadFromImage(buffer);
-		sprite = sf::Sprite(texture);
-		window.draw(sprite);
-		window.display();
+		uint32_t end = SDL_GetTicks();
+		float fps = 1000.f / float(end - start);
+		SDL_SetWindowTitle(window, ("Artee FPS: " + std::to_string(fps) + " (" + std::to_string(end - start) + "ms)").c_str());
 	}
+
+	SDL_DestroyWindow(window);
+	SDL_Quit();
 
 	return 0;
 }

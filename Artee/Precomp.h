@@ -1,11 +1,15 @@
 #pragma once
 
-constexpr auto SCREEN_WIDTH = 1280;
-constexpr auto SCREEN_HEIGHT = 720;
-constexpr auto TILE_SIZE = 32;
+constexpr unsigned SCREEN_WIDTH = 1280;
+constexpr unsigned SCREEN_HEIGHT = 720;
+constexpr unsigned TILE_SIZE = 32;
 
-constexpr auto MAX_SAMPLES = 16;
-constexpr auto MAX_BOUNCES = 64;
+constexpr unsigned MAX_SAMPLES = 16;
+constexpr unsigned MAX_BOUNCES = 64;
+
+// EXPERIMENTAL
+// Enables SIMD operations for vectors, where applicable
+#define EXP_SIMD_VEC 1
 
 // Basic shizzle
 #include <iostream>
@@ -17,7 +21,8 @@ constexpr auto MAX_BOUNCES = 64;
 #include "immintrin.h"
 
 // Windows and things to put images to the screen with
-#include <SFML/Graphics.hpp>
+#define SDL_MAIN_HANDLED
+#include <SDL2/SDL.h>
 
 // Own code
 #include "Vec.h"

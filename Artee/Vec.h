@@ -3,11 +3,12 @@
 class vec3
 {
 public:
-	union { struct { float x, y, z, dummy; }; float cell[4]; };
+	union { struct { float x, y, z, dummy; }; __m128 cell; };
 
 	vec3() = default;
 	vec3(float v) : x(v), y(v), z(v) {}
 	vec3(float x, float y, float z) : x(x), y(y), z(z) {}
+	vec3(__m128 cell) : cell(cell) {}
 
 	vec3 operator - () const;
 	vec3 operator + (const vec3& addOperand) const;
@@ -18,9 +19,6 @@ public:
 	void operator += (const vec3& a);
 	void operator *= (const vec3& a);
 	void operator *= (const float a);
-	
-	float operator [] (const unsigned& idx) const;
-	float& operator [] (const unsigned& idx);
 
 	float length() const;
 	float sqrLentgh() const;

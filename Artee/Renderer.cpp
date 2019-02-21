@@ -3,7 +3,7 @@
 Renderer::Renderer()
 {
 	// Prepare buffers
-	outBuffer = new unsigned char[SCREEN_WIDTH * SCREEN_HEIGHT * 4];
+	outBuffer = new uint32_t[SCREEN_WIDTH * SCREEN_HEIGHT];
 	vecBuffer = new vec3[SCREEN_WIDTH * SCREEN_HEIGHT];
 
 	// Prepare Tiles
@@ -32,7 +32,7 @@ Renderer::~Renderer()
 
 void Renderer::renderFrame()
 {
-	// Preparation for MT
+#pragma omp parallel for
 	for (int t = 0; t < tiles.size(); t++)
 	{
 		for (unsigned y = tiles[t].y; y < tiles[t].y + TILE_SIZE; y++)
@@ -48,15 +48,16 @@ void Renderer::renderFrame()
 	}
 }
 
-const unsigned char * Renderer::getOutput()
+void Renderer::getOutput(uint32_t* framebuffer, SDL_PixelFormat *format)
 {
-	for (unsigned i = 0; i < SCREEN_HEIGHT * SCREEN_WIDTH; i += 4)
+#pragma omp parallel for
+	for (int i = 0; i < SCREEN_HEIGHT * SCREEN_WIDTH; i++)
 	{
-		outBuffer[i] = vecBuffer[i / 4].x * 255;
-		outBuffer[i + 1] = vecBuffer[i / 4].y * 255;
-		outBuffer[i + 2] = vecBuffer[i / 4].z * 255;
-		outBuffer[i + 3] = 255;
-	}
+		uint32_t r = vecBuffer[i].x * 255;
+		uint32_t g = vecBuffer[i].y * 255;
+		uint32_t b = vecBuffer[i].z * 255;
+		uint32_t a = 255;
 
-	return outBuffer;
+		framebuffer[i] = SDL_MapRGBA(format, r, g, b, a);
+	}
 }
