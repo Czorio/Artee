@@ -53,11 +53,6 @@ int main(int argc, char* args[])
 			}
 		}
 
-		vec3 a = vec3();
-		vec3 b = vec3(1.f);
-		vec3 c = a * b;
-		printf("a + b == (%f, %f, %f)\n", c.x, c.y, c.z);
-
 		uint32_t end = SDL_GetTicks();
 		float fps = 1000.f / float(end - start);
 		SDL_SetWindowTitle(window, ("Artee FPS: " + std::to_string(fps) + " (" + std::to_string(end - start) + "ms)").c_str());
