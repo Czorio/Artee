@@ -132,9 +132,13 @@
     <ClCompile Include="Vec.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Primitive.h" />
+    <ClInclude Include="Hit.h" />
     <ClInclude Include="Precomp.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Vec.h" />
   </ItemGroup>
