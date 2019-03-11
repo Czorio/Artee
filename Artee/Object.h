@@ -4,9 +4,10 @@ class Object
 {
 public:
 	Hit intersect(const Ray& r) const;
+	void update(float deltaTime);
 
 private:
 	vec3 origin;
 	// TODO: Replace with an accelleration structure
-	std::vector<Primitive*> primitives;
+	BVH bvh;
 };

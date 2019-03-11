@@ -29,6 +29,8 @@ constexpr unsigned MAX_BOUNCES = 64;
 #include "Vec.h"
 #include "Ray.h"
 #include "Hit.h"
+#include "AABB.h"
+#include "BVH.h"
 #include "Primitive.h"
 #include "Object.h"
 #include "Scene.h"
