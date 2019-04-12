@@ -12,6 +12,9 @@ class BVH
 public:
 	BVH();
 	~BVH();
+
+	Hit intersect() const;
+	AABB getBounds() const;
 private:
 	std::vector<Primitive*> primitives;
 	std::vector<BVHNode> nodes;

@@ -56,11 +56,11 @@
     <ClInclude Include="Object.h">
       <Filter>Header Files\Scene Objects</Filter>
     </ClInclude>
-    <ClInclude Include="BVH.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AABB.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scene Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BVH.h">
+      <Filter>Header Files\Scene Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
