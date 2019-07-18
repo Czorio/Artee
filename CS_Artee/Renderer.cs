@@ -10,8 +10,12 @@ namespace CS_Artee
 {
     class Renderer
     {
+        // Scene
         private Camera camera;
         private List<IIntersectable> sceneObjects;
+        private List<Light> sceneLights;
+
+        // Render output
         private Vec3[,] imageBuffer;
         private int imageWidth, imageHeight;
 
@@ -21,9 +25,12 @@ namespace CS_Artee
             imageHeight = height;
             camera = new Camera(new Vec3(), new Vec3(1, 0, 0), new Vec3(0, 1, 0), imageWidth, imageHeight, 1);
             sceneObjects = new List<IIntersectable>();
+            sceneLights = new List<Light>();
 
             Material material = new Material(new Vec3(1, 0, 0), 0);
             sceneObjects.Add(new Sphere(new Vec3(2, 0, 0), 1.0f, material));
+
+            sceneLights.Add(new PointLight(new Vec3(0, 1, 1), 10.0f));
 
             imageBuffer = new Vec3[imageWidth, imageHeight];
         }
@@ -49,7 +56,32 @@ namespace CS_Artee
 
                     if (closestHit.type != 0)
                     {
-                        imageBuffer[x, y] = closestHit.Color;
+                        Vec3 color = closestHit.Color;
+
+                        float lightIntensity = 0.0f;
+                        foreach (Light light in sceneLights)
+                        {
+                            Ray shadowRay = light.GetShadowRay(closestHit.Intersection);
+                            float distance = light.DistanceFrom(closestHit.Intersection);
+
+                            bool isVisible = true;
+                            foreach (IIntersectable intersectable in sceneObjects)
+                            {
+                                HitRecord hit = intersectable.Hit(shadowRay);
+                                if (hit.type != 0 && hit.t < distance)
+                                {
+                                    isVisible = false;
+                                    break;
+                                }
+                            }
+
+                            if (isVisible)
+                            {
+                                lightIntensity += light.Intensity / (distance * distance);
+                            }
+                        }
+
+                        imageBuffer[x, y] = color * lightIntensity;
                     }
                     else
                     {
@@ -69,13 +101,29 @@ namespace CS_Artee
                 {
                     // RGB from XYZ
                     // TODO: Gamma Correction
-                    byteBuffer[x, y, 0] = (char)(imageBuffer[x, y].X * 255);
-                    byteBuffer[x, y, 1] = (char)(imageBuffer[x, y].Y * 255);
-                    byteBuffer[x, y, 2] = (char)(imageBuffer[x, y].Z * 255);
+                    byteBuffer[x, y, 0] = Clamp(imageBuffer[x, y].X * 255);
+                    byteBuffer[x, y, 1] = Clamp(imageBuffer[x, y].Y * 255);
+                    byteBuffer[x, y, 2] = Clamp(imageBuffer[x, y].Z * 255);
                 }
             }
 
             return byteBuffer;
+        }
+
+        private static char Clamp(float f)
+        {
+            if (f > 255)
+            {
+                return (char)255;
+            }
+            else if (f < 0)
+            {
+                return (char)0;
+            }
+            else
+            {
+                return (char)(f * 255);
+            }
         }
     }
 }
