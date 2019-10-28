@@ -5,11 +5,12 @@ struct HitRecord
 {
 	// Rendering stuff
 	bool insideHit;
-	
+	float distance;
+
 	// World stuff
 	Vec3f position;
 	Vec3f normal;
-	
+
 	// Material stuff
 	Vec3f color;
 	float emission;
@@ -17,4 +18,3 @@ struct HitRecord
 	float transparency;
 	float refractive;
 };
-

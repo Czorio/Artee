@@ -3,10 +3,12 @@
 
 class Camera
 {
-	Camera(Vec3f origin, Vec3f forward, Vec3f upGuide, float fov, float aperture, int x, int y);
+public:
+	Camera();
+	Camera(const Vec3f& origin, const Vec3f& forward, const Vec3f& upGuide, float fov, float aperture, int x, int y);
 	~Camera();
 
-	Ray getRayFor(int x, int y);
+	Ray getRayFor(int x, int y) const;
 
 private:
 	// Position
@@ -24,4 +26,3 @@ private:
 	float x_size;
 	float y_size;
 };
-

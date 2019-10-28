@@ -1,6 +1,12 @@
 #include "Camera.h"
 
-Camera::Camera(Vec3f origin, Vec3f forward, Vec3f upGuide, float fov, float aperture, int x, int y)
+Camera::Camera()
+{
+	origin = forward = up = right = Vec3f();
+	aspect = fov = aperture = x_size = y_size = 0.f;
+}
+
+Camera::Camera(const Vec3f& origin, const Vec3f& forward, const Vec3f& upGuide, float fov, float aperture, int x, int y)
 {
 	this->origin = origin;
 	this->forward = forward;
@@ -17,11 +23,11 @@ Camera::~Camera()
 {
 }
 
-Ray Camera::getRayFor(int x, int y)
+Ray Camera::getRayFor(int x, int y) const
 {
 	Ray r = Ray();
 	r.origin = origin;
-	
+
 	float u = (float)x / (float)x_size;
 	float v = (float)y / (float)y_size;
 	Vec3f to = origin + forward * fov + right * -u * aspect + up * v;

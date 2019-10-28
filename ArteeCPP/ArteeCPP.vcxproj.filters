@@ -11,6 +11,12 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>World\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="World">
@@ -48,10 +54,16 @@
     <ClInclude Include="HitRecord.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Material.h">
+    <ClInclude Include="Camera.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
+    <ClInclude Include="Material.h">
+      <Filter>World\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>World\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
       <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
