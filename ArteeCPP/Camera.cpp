@@ -1,9 +1,5 @@
 #include "Camera.h"
 
-Camera::Camera()
-{
-}
-
 Camera::Camera(Vec3f origin, Vec3f forward, Vec3f upGuide, float fov, float aperture, int x, int y)
 {
 	this->origin = origin;
