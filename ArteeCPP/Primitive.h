@@ -5,7 +5,7 @@
 class Primitive
 {
 public:
-	virtual ~Primitive() {}
+	virtual ~Primitive() = default;
 
 	virtual bool hit(const Ray& r, HitRecord& hit) = 0;
 };

@@ -17,6 +17,12 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>World\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>World\Materials</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="World">
@@ -39,6 +45,9 @@
     </Filter>
     <Filter Include="Math">
       <UniqueIdentifier>{ac6ad08e-7fd7-46ca-89cb-f710313f6f79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{f4f1d555-2e7f-479a-8c04-e8348c96bac5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +74,12 @@
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>World\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="NumericUtil.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

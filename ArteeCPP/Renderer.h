@@ -5,21 +5,20 @@
 class Renderer
 {
 public:
-	Renderer(int imageWidth, int imageHeight, Camera camera);
+	Renderer(int imageWidth, int imageHeight, const Camera& camera);
 	~Renderer();
 
 	// Rendering
 	void renderFrame();
-	void getOutput(uint32_t* pixels);
+	void getOutput(uint32_t* pixels) const;
 
 private:
-	int imageWidth;
-	int imageHeight;
+	int imageWidth_;
+	int imageHeight_;
 
-	Vec3f* vecBuffer;
+	Vec3f* vecBuffer_;
 
-	Camera camera;
+	Camera camera_;
 
-	Vec3f shootRay(const Ray& r);
+	static Vec3f shootRay(const Ray& r);
 };
-

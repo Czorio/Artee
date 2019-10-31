@@ -1,17 +1,17 @@
 #pragma once
 #include "Primitive.h"
 
-class Sphere : public Primitive
+class Sphere final : public Primitive
 {
 public:
 	Sphere();
-	Sphere(Vec3f origin, float radius);
-	~Sphere();
+	Sphere(const Vec3f& origin, float radius);
+	~Sphere() = default;
 
-	virtual bool hit(const Ray& r, HitRecord& hit) override;
+	bool hit(const Ray& r, HitRecord& hit) override;
 
 private:
-	Vec3f origin;
-	float radius;
-	float r2;
+	Vec3f origin_;
+	float radius_;
+	float r2_;
 };

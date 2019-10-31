@@ -5,18 +5,18 @@ class Vec3f
 {
 public:
 	Vec3f();
-	Vec3f(const float broad);
-	Vec3f(const float x, const float y, const float z);
+	Vec3f(float broad);
+	Vec3f(float x, float y, float z);
 	Vec3f(const __m128& vector);
-	~Vec3f();
+	~Vec3f() = default;
 
 	Vec3f operator +(const Vec3f& b) const;
 	void operator +=(const Vec3f& b);
 	Vec3f operator -(const Vec3f& b) const;
 	void operator -=(const Vec3f& b);
-	Vec3f operator *(const float f) const;
+	Vec3f operator *(float f) const;
 	Vec3f operator *(const Vec3f& b) const;
-	Vec3f operator /(const float f) const;
+	Vec3f operator /(float f) const;
 	float operator [](int pos) const;
 
 	float dot(const Vec3f& b) const;
@@ -30,7 +30,7 @@ public:
 private:
 	union
 	{
-		__m128 _vector;
+		__m128 vector;
 		float xyz[4];
 	};
 };

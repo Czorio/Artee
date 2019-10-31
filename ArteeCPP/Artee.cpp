@@ -21,9 +21,10 @@ int main()
 	);
 
 	SDL_Surface* surface = SDL_GetWindowSurface(window);
-	uint32_t* buffer = static_cast<uint32_t*>(surface->pixels);
+	auto buffer = static_cast<uint32_t*>(surface->pixels);
 
-	Camera camera = Camera(Vec3f(-1.f, 0.f, 0.f), Vec3f(1.f, 0.f, 0.f), Vec3f(0.f, 0.f, 1.f), 1.f, 1.f, IMAGEWIDTH, IMAGEHEIGHT);
+	Camera camera = Camera(Vec3f(-1.f, 0.f, 0.f), Vec3f(1.f, 0.f, 0.f), Vec3f(0.f, 0.f, 1.f), 1.f, 1.f, IMAGEWIDTH,
+	                       IMAGEHEIGHT);
 	Renderer renderer = Renderer(IMAGEWIDTH, IMAGEHEIGHT, camera);
 
 	bool shouldStop = false;

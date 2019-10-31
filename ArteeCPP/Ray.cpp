@@ -11,11 +11,7 @@ Ray::Ray(const Vec3f& origin, const Vec3f& direction)
 	this->direction = direction;
 }
 
-Ray::~Ray()
-{
-}
-
-Vec3f Ray::operator()(float t) const
+Vec3f Ray::operator()(const float t) const
 {
 	return origin + direction * t;
 }

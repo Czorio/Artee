@@ -1,27 +1,27 @@
 #include "Renderer.h"
 
-Renderer::Renderer(int imageWidth, int imageHeight, Camera camera)
+Renderer::Renderer(int imageWidth, int imageHeight, const Camera& camera)
 {
-	this->camera = camera;
-	this->imageWidth = imageWidth;
-	this->imageHeight = imageHeight;
-	vecBuffer = new Vec3f[imageWidth * imageHeight];
+	this->camera_ = camera;
+	this->imageWidth_ = imageWidth;
+	this->imageHeight_ = imageHeight;
+	vecBuffer_ = new Vec3f[imageWidth * imageHeight];
 }
 
 Renderer::~Renderer()
 {
-	delete[] vecBuffer;
-	vecBuffer = NULL;
+	delete[] vecBuffer_;
+	vecBuffer_ = nullptr;
 }
 
 void Renderer::renderFrame()
 {
-	for (size_t y = 0; y < imageHeight; y++)
+	for (size_t y = 0; y < imageHeight_; y++)
 	{
-		for (size_t x = 0; x < imageWidth; x++)
+		for (size_t x = 0; x < imageWidth_; x++)
 		{
-			Ray r = camera.getRayFor(x, y);
-			vecBuffer[y * imageWidth + x] = shootRay(r);
+			auto r = camera_.getRayFor(x, y);
+			vecBuffer_[y * imageWidth_ + x] = shootRay(r);
 		}
 	}
 }
@@ -32,32 +32,29 @@ union Colour
 	char chars[4];
 };
 
-constexpr float clamp(float hi, float lo, float val)
+constexpr float Clamp(const float hi, const float lo, const float val)
 {
 	if (val < lo)
 	{
 		return lo;
 	}
-	else if (val > hi)
+	if (val > hi)
 	{
 		return hi;
 	}
-	else
-	{
-		return val;
-	}
+	return val;
 }
 
-void Renderer::getOutput(uint32_t* pixels)
+void Renderer::getOutput(uint32_t* pixels) const
 {
 	Colour c;
 
-	int length = imageHeight * imageWidth;
+	const auto length = imageHeight_ * imageWidth_;
 	for (size_t i = 0; i < length; i++)
 	{
-		c.chars[0] = (char)(vecBuffer[i][0] * 255.f);
-		c.chars[1] = (char)(vecBuffer[i][1] * 255.f);
-		c.chars[2] = (char)(vecBuffer[i][2] * 255.f);
+		c.chars[0] = static_cast<char>(vecBuffer_[i][0] * 255.f);
+		c.chars[1] = static_cast<char>(vecBuffer_[i][1] * 255.f);
+		c.chars[2] = static_cast<char>(vecBuffer_[i][2] * 255.f);
 		c.chars[3] = 255;
 		pixels[i] = c.integer;
 	}

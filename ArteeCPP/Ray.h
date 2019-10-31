@@ -5,7 +5,7 @@ struct Ray
 {
 	Ray();
 	Ray(const Vec3f& origin, const Vec3f& direction);
-	~Ray();
+	~Ray() = default;
 
 	Vec3f operator ()(float t) const;
 
