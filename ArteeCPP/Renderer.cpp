@@ -14,6 +14,17 @@ Renderer::~Renderer()
 	vecBuffer_ = nullptr;
 }
 
+void Renderer::primitiveAdd(Primitive* primitive)
+{
+	primitives_.push_back(primitive);
+}
+
+void Renderer::primitiveAdd(const std::vector<Primitive*>& primitives)
+{
+	primitives_.reserve(primitives.size() + primitives.size());
+	primitives_.insert(primitives_.end(), primitives.begin(), primitives.end());
+}
+
 void Renderer::renderFrame()
 {
 	for (size_t y = 0; y < imageHeight_; y++)
@@ -62,5 +73,14 @@ void Renderer::getOutput(uint32_t* pixels) const
 
 Vec3f Renderer::shootRay(const Ray& r)
 {
+	HitRecord hit;
+	for (auto primitive : primitives_)
+	{
+		if (primitive->hit(r, hit))
+		{
+			return Vec3f(1.f);
+		}
+	}
+	
 	return Vec3f();
 }

@@ -5,11 +5,12 @@ class Sphere final : public Primitive
 {
 public:
 	Sphere();
-	Sphere(const Vec3f& origin, float radius);
+	explicit Sphere(const Vec3f& origin, float radius);
 	~Sphere() = default;
 
 	bool hit(const Ray& r, HitRecord& hit) override;
 
+	void translate(const Vec3f& translation) override;
 private:
 	Vec3f origin_;
 	float radius_;

@@ -65,3 +65,14 @@ bool Triangle::hit(const Ray& r, HitRecord& hit)
 
 	return true;
 }
+
+void Triangle::translate(const Vec3f& translation)
+{
+	this->v1_ += translation;
+	this->v2_ += translation;
+	this->v3_ += translation;
+
+	// Shouldn't change, but let's make sure
+	v1_v2_ = v2_ - v1_;
+	v1_v3_ = v3_ - v1_;
+}

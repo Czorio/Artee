@@ -1,11 +1,12 @@
 #pragma once
 #include "Vec3f.h"
+#include <limits>
 
 struct HitRecord
 {
 	// Rendering stuff
 	bool insideHit;
-	float distance;
+	float distance = std::numeric_limits<float>::max();
 
 	// World stuff
 	Vec3f position;

@@ -59,3 +59,8 @@ bool Sphere::hit(const Ray& r, HitRecord& hit)
 	// Both intersection points were behind the ray
 	return false;
 }
+
+void Sphere::translate(const Vec3f& translation)
+{
+	this->origin_ += translation;
+}

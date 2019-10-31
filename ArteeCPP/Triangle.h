@@ -5,10 +5,11 @@ class Triangle final : public Primitive
 {
 public:
 	Triangle();
-	Triangle(const Vec3f& v1, const Vec3f& v2, const Vec3f& v3, const Vec3f& norm);
+	explicit Triangle(const Vec3f& v1, const Vec3f& v2, const Vec3f& v3, const Vec3f& norm);
 	~Triangle() = default;
 
 	bool hit(const Ray& r, HitRecord& hit) override;
+	void translate(const Vec3f& translation) override;
 private:
 	// Verteces
 	Vec3f v1_;

@@ -23,6 +23,12 @@
     <ClCompile Include="Material.cpp">
       <Filter>World\Materials</Filter>
     </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>World\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="BVH.cpp">
+      <Filter>World\Accelleration Structures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="World">
@@ -48,6 +54,9 @@
     </Filter>
     <Filter Include="Util">
       <UniqueIdentifier>{f4f1d555-2e7f-479a-8c04-e8348c96bac5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World\Objects">
+      <UniqueIdentifier>{ff5db44c-3875-4b3b-87d7-f12ba8bd6aa8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +89,12 @@
     </ClInclude>
     <ClInclude Include="NumericUtil.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>World\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BVH.h">
+      <Filter>World\Accelleration Structures</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
