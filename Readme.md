@@ -8,7 +8,9 @@ This project is written using Visual Studio 2019 Community. The included project
 
 At present, the only external library that is used is SDL2, which I included using VCPKG. I did this because I could never get the hang of including external libraries the "proper" way, and this method works out of the box.
 
-Make sure to enable your compiler's OpenMP option as well.
+### Notes
+
+I only build in x64, as the SIMD libraries have been a bit of a problem with x86 for me. It might work in x86, though I don't intend to bug fix for it. Make sure to enable your compiler's OpenMP option as well.
 
 ## Contributing
 
